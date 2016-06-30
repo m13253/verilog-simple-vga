@@ -9,6 +9,6 @@ module top(
     wire [10:0] pos;
     reg [7:0] char;
     always @(posedge clk)
-        char <= pos[0] ? 65 : (128+66);
+            char <= {pos[7], pos[6:0] >= 32 ? pos[6:0] : 7'd32};
     vga vga(clk, hsync, vsync, r, g, b, pos, char);
 endmodule

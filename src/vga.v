@@ -29,7 +29,7 @@ module vga(
 
     wire [10:0] cx = x_2 >> 3;
     wire [10:0] cy = (y_2-11'd40) >> 4;
-    assign pos = (cy << 4) + ((cy << 6) | cx);
+    assign pos = cy * 80 + cx;
 
     assign hsync = !(x_0 >= 664 && x_0 < 720);
     assign vsync = (y_0 >= 483 && y_0 < 487);
@@ -40,7 +40,7 @@ module vga(
 
     reg [7:0] fontline;
     always @(posedge clk)
-        fontline <= font[{char[6:0], y_1[3:0]+4'd8}];
+        fontline <= font[{char[6:0]+7'd96, y_1[3:0]}];
 
     reg invert;
     always @(posedge clk)
