@@ -40,7 +40,7 @@ module vga(
 
     reg [7:0] fontline;
     always @(posedge clk)
-        fontline <= font[{char[6:0]+7'd96, y_1[3:0]}];
+        fontline <= font[{char[6:0]+7'd96, y_1[3:0]+4'd8}];
 
     reg invert;
     always @(posedge clk)
