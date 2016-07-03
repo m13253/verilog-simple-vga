@@ -48,7 +48,9 @@ module vga(
 
     wire [7:0] fontbit = fontline << x_0[2:0];
     wire valid = x_0 < 640 && y_0 >= 40 && y_0 < 440;
-    wire w = valid & (fontbit[7] ^ invert);
+    wire corner = (x_0 == 0 && y_0 == 0) || (x_0 == 0 && y_0 == 479)
+               || (x_0 == 639 && y_0 == 0) || (x_0 == 639 && y_0 == 479);
+    wire w = (valid & (fontbit[7] ^ invert)) | corner;
 
     assign r = w;
     assign g = w;
